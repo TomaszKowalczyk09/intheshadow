@@ -88,6 +88,15 @@ export type FullScreenFXProps = {
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 
+function responsiveSrcSet(url?: string) {
+  if (!url || !url.includes("images.unsplash.com") || !/[?&]w=\d+/.test(url)) {
+    return undefined;
+  }
+  return [640, 960, 1280, 1600, 2000]
+    .map((width) => `${url.replace(/([?&])w=\d+/, `$1w=${width}`)} ${width}w`)
+    .join(", ");
+}
+
 export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
   (
     {
@@ -505,7 +514,10 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
                             if (el) bgRefs.current[i] = el;
                           }}
                           src={s.background}
+                          srcSet={responsiveSrcSet(s.background)}
+                          sizes="100vw"
                           alt=""
+                          decoding="async"
                           className="fx-bg-img"
                         />
                         <div className="fx-bg-overlay" />
@@ -621,7 +633,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
           }
 
           .fx-fixed-section { height: ${Math.max(1, total + 1)}00vh; position: relative; }
-          .fx-fixed { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; background: var(--fx-page-bg); }
+          .fx-fixed { position: sticky; top: 0; height: 100vh; height: 100svh; width: 100%; overflow: hidden; background: var(--fx-page-bg); }
 
           .fx-grid {
             display: grid;
@@ -695,14 +707,15 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
           .fx-right-item.active::after { right: 0; }
 
           .fx-center {
+            position: relative;
             display: grid; place-items: center; text-align: center; height: 60vh; overflow: hidden;
           }
-          .fx-featured { position: absolute; opacity: 0; visibility: hidden; }
+          .fx-featured { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; visibility: hidden; }
           .fx-featured.active { opacity: 1; visibility: visible; }
           .fx-featured-title {
             margin: 0; color: var(--fx-text);
             font-weight: 900; letter-spacing: -0.01em;
-            font-size: clamp(2rem, 7.5vw, 6rem);
+            font-size: clamp(2rem, 7vw, 5.5rem);
           }
           .fx-word-mask { display: inline-block; overflow: hidden; vertical-align: middle; }
           .fx-word { display: inline-block; vertical-align: middle; }
@@ -720,12 +733,50 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
           @media (max-width: 900px) {
             .fx-content {
-              grid-template-columns: 1fr; row-gap: 3vh;
-              place-items: center;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding-top: 14vh;
+              padding-bottom: 18vh;
+              padding-left: 0;
+              padding-right: 0;
             }
-            .fx-left, .fx-right, .fx-center { height: auto; }
-            .fx-left, .fx-right { justify-items: center; }
-            .fx-track { transform: none !important; }
+            .fx-left, .fx-right { display: none; }
+            .fx-center {
+              width: 100%;
+              height: clamp(3.4rem, 15vw, 6.5rem);
+            }
+            .fx-featured-title {
+              font-size: clamp(2.8rem, 13vw, 5.5rem);
+              line-height: 1;
+            }
+            .fx-header {
+              padding-top: max(6vh, env(safe-area-inset-top));
+              font-size: clamp(2.4rem, 13vw, 4.5rem);
+            }
+            .fx-footer {
+              padding-bottom: max(4vh, env(safe-area-inset-bottom));
+            }
+            .fx-footer-title {
+              font-size: clamp(1.2rem, 5vw, 1.6rem);
+              line-height: 1;
+              letter-spacing: 0.08em;
+            }
+            .fx-footer-title a {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              min-height: 44px;
+              padding: 0 1rem;
+            }
+            .fx-progress {
+              width: min(200px, 70vw);
+              margin-top: 0.5rem;
+            }
+            .fx-end {
+              height: 20vh;
+              min-height: 110px;
+            }
           }
         `}</style>
       </div>

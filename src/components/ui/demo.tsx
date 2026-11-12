@@ -53,9 +53,7 @@ export default function PortfolioHero() {
         sections={sections}
         header={
           <>
-            <div>Portfolio</div>
-            <div>Dewelopera</div>
-          </>
+            <div>InTheShadow</div>          </>
         }
         footer={
           <a
@@ -75,7 +73,7 @@ export default function PortfolioHero() {
         durations={{ change: 0.7, snap: 800 }}
         showProgress
         apiRef={apiRef}
-        ariaLabel="Portfolio dewelopera — przewijana prezentacja"
+        ariaLabel="Portfolio Tomasza Kowalczyka, przewijana prezentacja"
       />
     </>
   );

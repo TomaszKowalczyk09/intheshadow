@@ -4,13 +4,13 @@ import { useId, useState, type FormEvent } from "react";
 import { ArrowUpRight, Check, LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const EMAIL = "kontakt@intheshadow.dev";
+const EMAIL = "kowalczyktomasz078@gmail.com";
 
 type FieldName = "name" | "email" | "message";
 type Errors = Partial<Record<FieldName, string>>;
 
 const inputBase =
-  "w-full rounded-none border bg-zinc-950 px-3.5 py-3 text-sm text-zinc-100 outline-none transition placeholder:text-zinc-600 focus:ring-2";
+  "w-full rounded-none border bg-zinc-950 px-3.5 py-3 text-base text-zinc-100 outline-none transition placeholder:text-zinc-600 focus:ring-2 sm:text-sm";
 
 export default function ContactForm() {
   const [values, setValues] = useState({ name: "", email: "", message: "" });
@@ -65,7 +65,7 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="flex min-h-[440px] flex-col justify-between border border-white/10 bg-zinc-900/40 p-6 sm:p-8">
+      <div className="flex min-h-[400px] flex-col justify-between border border-white/10 bg-zinc-900/40 p-5 sm:min-h-[440px] sm:p-8">
         <div>
           <span className="flex h-11 w-11 items-center justify-center border border-signal/30 bg-signal/10">
             <Check className="h-5 w-5 text-signal" aria-hidden="true" />
@@ -75,7 +75,7 @@ export default function ContactForm() {
             Otworzyłem Twój program pocztowy. Jeśli okno się nie pojawiło, napisz bezpośrednio na{" "}
             <a
               href={`mailto:${EMAIL}`}
-              className="text-zinc-100 underline decoration-white/30 underline-offset-4 transition hover:decoration-signal"
+              className="break-all text-zinc-100 underline decoration-white/30 underline-offset-4 transition hover:decoration-signal"
             >
               {EMAIL}
             </a>
@@ -85,7 +85,7 @@ export default function ContactForm() {
         <button
           type="button"
           onClick={reset}
-          className="mt-8 inline-flex w-full items-center justify-center gap-2 border border-white/15 px-5 py-3 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-zinc-300 transition hover:border-white/30 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal/40 active:translate-y-px"
+          className="mt-8 inline-flex min-h-11 w-full items-center justify-center gap-2 border border-white/15 px-5 py-3 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-zinc-300 transition hover:border-white/30 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal/40 active:translate-y-px"
         >
           Wyślij kolejną
         </button>
@@ -97,7 +97,7 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="border border-white/10 bg-zinc-900/40 p-6 sm:p-8"
+      className="border border-white/10 bg-zinc-900/40 p-5 sm:p-8"
     >
       <div className="space-y-5">
         <div className="space-y-2">
@@ -197,7 +197,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="group mt-6 inline-flex w-full items-center justify-center gap-2 bg-signal px-5 py-3.5 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-[#0b1000] transition hover:bg-[#d6ff5e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal/50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-70"
+        className="group mt-6 inline-flex min-h-11 w-full items-center justify-center gap-2 bg-signal px-5 py-3.5 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-[#0b1000] transition hover:bg-[#d6ff5e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal/50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === "sending" ? (
           <>

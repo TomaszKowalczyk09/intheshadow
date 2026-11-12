@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
@@ -18,9 +18,14 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio Dewelopera | Full-Stack",
+  title: "Tomasz Kowalczyk | Portfolio",
   description:
-    "Portfolio programisty — od pomysłu, przez design i kod, aż po wdrożenie i skalę.",
+    "Tester oprogramowania, full-stack developer i social media manager. Doświadczenie, umiejętności i kontakt.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
